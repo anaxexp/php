@@ -1,0 +1,79 @@
+-include env_make
+
+PHP_VER ?= 5.3.29
+PHP_VER_MINOR ?= $(shell echo "${PHP_VER}" | grep -oE '^[0-9]+\.[0-9]+')
+
+REPO = anaxexp/php
+NAME = php-$(PHP_VER_MINOR)
+FROM_TAG = $(PHP_VER)
+
+ANAXEXP_USER_ID ?= 1000
+ANAXEXP_GROUP_ID ?= 1000
+
+ifeq ($(TAG),)
+    ifneq ($(PHP_DEBUG),)
+        TAG ?= $(PHP_VER_MINOR)-debug
+    else ifneq ($(PHP_DEV),)
+    	TAG ?= $(PHP_VER_MINOR)-dev
+    else
+        TAG ?= $(PHP_VER_MINOR)
+    endif
+endif
+
+ifneq ($(PHP_DEV),)
+    NAME := $(NAME)-dev
+endif
+
+ifneq ($(PHP_DEBUG),)
+    NAME := $(NAME)-debug
+    FROM_TAG := $(FROM_TAG)-debug
+    PHP_DEV := 1
+endif
+
+ifneq ($(STABILITY_TAG),)
+    ifneq ($(TAG),latest)
+        override TAG := $(TAG)-$(STABILITY_TAG)
+    endif
+endif
+
+.PHONY: build test push shell run start stop logs clean release
+
+default: build
+
+build:
+	docker build -t $(REPO):$(TAG) \
+		--build-arg FROM_TAG=$(FROM_TAG) \
+		--build-arg PHP_DEV=$(PHP_DEV) \
+		--build-arg PHP_DEBUG=$(PHP_DEBUG) \
+		--build-arg ANAXEXP_USER_ID=$(ANAXEXP_USER_ID) \
+		--build-arg ANAXEXP_GROUP_ID=$(ANAXEXP_GROUP_ID) \
+		./
+
+test:
+	cd ./test && IMAGE=$(REPO):$(TAG) ./run.sh
+
+push:
+	docker push $(REPO):$(TAG)
+
+shell:
+	docker run --rm --name $(NAME) -i -t $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG) /bin/bash
+
+run:
+	docker run --rm --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG) $(CMD)
+
+start:
+	docker run -d --name $(NAME) $(PORTS) $(VOLUMES) $(ENV) $(REPO):$(TAG)
+
+stop:
+	docker stop $(NAME)
+
+logs:
+	docker logs $(NAME)
+
+clean:
+	-docker rm -f $(NAME)
+
+check-configs:
+	./check-configs.sh $(PHP_VER) $(PHP_VER_MINOR)
+
+release: build push

@@ -1,0 +1,42 @@
+language: bash
+
+services:
+  - docker
+
+env:
+  global:
+    - PHP72=7.2.7
+    - PHP71=7.1.19
+    - PHP70=7.0.30
+    - PHP56=5.6.36
+    - PHP53=5.3.29
+  matrix:
+    - PHP_VER="${PHP72}" TAGS=7.2,7,latest
+    - PHP_VER="${PHP71}" TAGS=7.1
+    - PHP_VER="${PHP70}" TAGS=7.0
+    - PHP_VER="${PHP56}" TAGS=5.6,5
+    - PHP_VER="${PHP53}" TAGS=5.3
+    - PHP_VER="${PHP72}" PHP_DEV=1 TAGS=7.2-dev,7-dev
+    - PHP_VER="${PHP71}" PHP_DEV=1 TAGS=7.1-dev
+    - PHP_VER="${PHP70}" PHP_DEV=1 TAGS=7.0-dev
+    - PHP_VER="${PHP56}" PHP_DEV=1 TAGS=5.6-dev,5-dev
+    - PHP_VER="${PHP53}" PHP_DEV=1 TAGS=5.3-dev
+    - PHP_VER="${PHP72}" PHP_DEV=1 WODBY_USER_ID=501 WODBY_GROUP_ID=20 TAGS=7.2-dev-macos,7-dev-macos
+    - PHP_VER="${PHP71}" PHP_DEV=1 WODBY_USER_ID=501 WODBY_GROUP_ID=20 TAGS=7.1-dev-macos
+    - PHP_VER="${PHP70}" PHP_DEV=1 WODBY_USER_ID=501 WODBY_GROUP_ID=20 TAGS=7.0-dev-macos
+    - PHP_VER="${PHP56}" PHP_DEV=1 WODBY_USER_ID=501 WODBY_GROUP_ID=20 TAGS=5.6-dev-macos,5-dev-macos
+    - PHP_VER="${PHP53}" PHP_DEV=1 WODBY_USER_ID=501 WODBY_GROUP_ID=20 TAGS=5.3-dev-macos
+    - PHP_VER="${PHP72}" PHP_DEBUG=1 TAGS=7.2-debug,7-debug
+    - PHP_VER="${PHP71}" PHP_DEBUG=1 TAGS=7.1-debug
+    - PHP_VER="${PHP70}" PHP_DEBUG=1 TAGS=7.0-debug
+    - PHP_VER="${PHP56}" PHP_DEBUG=1 TAGS=5.6-debug,5-debug
+
+script:
+  - set -e
+  - cd "${PHP_VER:0:1}" || cd "${PHP_VER:0:3}"
+  - make check-configs
+  - travis_retry make
+  - make test
+
+after_success:
+  - . "${TRAVIS_BUILD_DIR}/release.sh"
