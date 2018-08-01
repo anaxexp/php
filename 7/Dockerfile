@@ -253,7 +253,7 @@ RUN set -xe; \
     \
     # Uploadprogress
     mkdir -p /usr/src/php/ext/uploadprogress; \
-    up_url="https://github.com/anaxexp/pecl-php-uploadprogress/archive/latest.tar.gz"; \
+    up_url="https://github.com/wodby/pecl-php-uploadprogress/archive/latest.tar.gz"; \
     wget -qO- "${up_url}" | tar xz --strip-components=1 -C /usr/src/php/ext/uploadprogress; \
     docker-php-ext-install uploadprogress; \
     \
