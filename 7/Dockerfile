@@ -1,6 +1,6 @@
 ARG FROM_TAG
 
-FROM anaxexperience/base-php:${FROM_TAG}
+FROM anaxexp/base-php:${FROM_TAG}
 
 ARG PHP_DEV
 ARG PHP_DEBUG

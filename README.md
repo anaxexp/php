@@ -1,9 +1,9 @@
 # PHP Docker Container Images
 
 [![Build Status](https://travis-ci.org/anaxexp/php.svg?branch=master)](https://travis-ci.org/anaxexp/php)
-[![Docker Pulls](https://img.shields.io/docker/pulls/anaxexperience/php.svg)](https://hub.docker.com/r/anaxexperience/php)
-[![Docker Stars](https://img.shields.io/docker/stars/anaxexperience/php.svg)](https://hub.docker.com/r/anaxexperience/php)
-[![Docker Layers](https://images.microbadger.com/badges/image/anaxexperience/php.svg)](https://microbadger.com/images/woanaxexperiencedby/php)
+[![Docker Pulls](https://img.shields.io/docker/pulls/anaxexp/php.svg)](https://hub.docker.com/r/anaxexp/php)
+[![Docker Stars](https://img.shields.io/docker/stars/anaxexp/php.svg)](https://hub.docker.com/r/anaxexp/php)
+[![Docker Layers](https://images.microbadger.com/badges/image/anaxexp/php.svg)](https://microbadger.com/images/woanaxexpdby/php)
 
 ## Table of Contents
 
@@ -23,19 +23,19 @@
     - [Users and permissions](#users-and-permissions)
             - [Helper scripts](#helper-scripts)
     - [Complete PHP stacks](#complete-php-stacks)
-    - [Images based on `anaxexperience/php`](#images-based-on-anaxexperiencephp)
+    - [Images based on `anaxexp/php`](#images-based-on-anaxexpphp)
     - [Orchestration Actions](#orchestration-actions)
 
 ## Docker Images
 
-❗For better reliability we release images with stability tags (`anaxexperience/php:7.1-X.X.X`) which correspond to [git tags](https://github.com/anaxexp/php/releases). We strongly recommend using images only with stability tags. 
+❗For better reliability we release images with stability tags (`anaxexp/php:7.1-X.X.X`) which correspond to [git tags](https://github.com/anaxexp/php/releases). We strongly recommend using images only with stability tags. 
 
 About images:
 
 * All images are based on Alpine Linux
-* Base image: [anaxexperience/base-php](https://github.com/anaxexp/base-php) ([anaxexperience/alpine](https://github.com/anaxexp/alpine) for 5.3)
+* Base image: [anaxexp/base-php](https://github.com/anaxexp/base-php) ([anaxexp/alpine](https://github.com/anaxexp/alpine) for 5.3)
 * [Travis CI builds](https://travis-ci.org/anaxexp/php) 
-* [Docker Hub](https://hub.docker.com/r/anaxexperience/php) 
+* [Docker Hub](https://hub.docker.com/r/anaxexp/php) 
 * [`-dev`](#-dev-images) and [`-debug`](#-debug-images) images have a few differences
 
 Supported tags and respective `Dockerfile` links:
@@ -435,14 +435,14 @@ See https://github.com/anaxexp/php/issues/22 for more details.
 
 ## Complete PHP stacks
 
-* [anaxexperience/docker4php](https://github.com/anaxexp/docker4php)
-* [anaxexperience/docker4drupal](https://github.com/anaxexp/docker4drupal)
-* [anaxexperience/docker4wordpress](https://github.com/anaxexp/docker4wordpress)
+* [anaxexp/docker4php](https://github.com/anaxexp/docker4php)
+* [anaxexp/docker4drupal](https://github.com/anaxexp/docker4drupal)
+* [anaxexp/docker4wordpress](https://github.com/anaxexp/docker4wordpress)
 
-## Images based on `anaxexperience/php`
+## Images based on `anaxexp/php`
 
-* [anaxexperience/drupal-php](https://github.com/anaxexp/drupal-php)
-* [woanaxexperiencedby/wordpress-php](https://github.com/anaxexp/wordpress-php)
+* [anaxexp/drupal-php](https://github.com/anaxexp/drupal-php)
+* [woanaxexpdby/wordpress-php](https://github.com/anaxexp/wordpress-php)
 
 ## Orchestration Actions
 
