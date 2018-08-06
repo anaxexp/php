@@ -435,9 +435,9 @@ See https://github.com/anaxexp/php/issues/22 for more details.
 
 ## Complete PHP stacks
 
-* [anaxexp/docker4php](https://github.com/anaxexp/docker4php)
+* [anaxexp/php4docker](https://github.com/anaxexp/php4docker)
 * [anaxexp/docker4drupal](https://github.com/anaxexp/docker4drupal)
-* [anaxexp/docker4wordpress](https://github.com/anaxexp/docker4wordpress)
+* [anaxexp/wordpress4docker](https://github.com/anaxexp/wordpress4docker)
 
 ## Images based on `anaxexp/php`
 

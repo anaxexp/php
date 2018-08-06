@@ -1,6 +1,6 @@
 -include env_make
 
-PHP_VER ?= 5.6.36
+PHP_VER ?= 5.6.37
 PHP_VER_MINOR ?= $(shell echo "${PHP_VER}" | grep -oE '^[0-9]+\.[0-9]+')
 
 REPO = anaxexp/php
@@ -50,7 +50,7 @@ build:
 		./
 
 test:
-	cd ./test && IMAGE=$(REPO):$(TAG) ./run.sh
+	cd ./tests && IMAGE=$(REPO):$(TAG) ./run.sh
 
 push:
 	docker push $(REPO):$(TAG)

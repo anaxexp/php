@@ -25,8 +25,9 @@ ENV PHP_DEV="${PHP_DEV}" \
     \
     APP_ROOT="/var/www/html" \
     CONF_DIR="/var/www/conf" \
-    FILES_DIR="/mnt/files" \
-    PATH="${PATH}:/home/anaxexp/.composer/vendor/bin" \
+    FILES_DIR="/mnt/files" 
+
+ENV PATH="${PATH}:/home/anaxexp/.composer/vendor/bin:${APP_ROOT}/vendor/bin" \
     SSHD_HOST_KEYS_DIR="/etc/ssh" \
     ENV="/home/anaxexp/.shrc" \
     \
@@ -214,6 +215,7 @@ RUN set -xe; \
     \
     # Make sure bash uses the same settings as ash.
     cp /home/anaxexp/.shrc /home/anaxexp/.bashrc; \
+    cp /home/anaxexp/.shrc /home/anaxexp/.bash_profile; \
     \
     # Configure sudoers
     { \
@@ -264,6 +266,7 @@ RUN set -xe; \
     \
     # Crontab
     rm /etc/crontabs/root; \
+    # deprecated: remove in favor of bind mounts.
     touch /etc/crontabs/www-data; \
     chown root:www-data /etc/crontabs/www-data; \
     chmod 660 /etc/crontabs/www-data; \

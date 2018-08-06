@@ -14,12 +14,17 @@ services:
     command: sudo /usr/sbin/sshd -De
     volumes:
       - ./authorized_keys:/home/anaxexp/.ssh/authorized_keys
+    environment:
+      DEBUG: 1
 
   php:
     image: $IMAGE
     environment:
       SSH_DISABLE_STRICT_KEY_CHECKING: 1
       PHP_XDEBUG: 1
+      PHP_XHPROF: 1
+      PHP_BLACKFIRE: 1
+      ROWS: 80
     volumes:
       - ./tests.sh:/usr/local/bin/tests.sh
       - ./php_modules:/home/anaxexp/php_modules

@@ -57,8 +57,9 @@ ENV PHP_DEV="${PHP_DEV}" \
 
 ENV APP_ROOT="/var/www/html" \
     CONF_DIR="/var/www/conf" \
-    FILES_DIR="/mnt/files" \
-    PATH="${PATH}:/home/anaxexp/.composer/vendor/bin" \
+    FILES_DIR="/mnt/files"
+
+ENV PATH="${PATH}:/home/anaxexp/.composer/vendor/bin:${APP_ROOT}/vendor/bin" \
     SSHD_HOST_KEYS_DIR="/etc/ssh" \
     ENV="/home/anaxexp/.shrc" \
     \
@@ -73,10 +74,10 @@ RUN set -xe; \
     existing_user=$(getent passwd "${ANAXEXP_USER_ID}" | cut -d: -f1); \
     if [[ -n "${existing_user}" ]]; then deluser "${existing_user}"; fi; \
     \
-	addgroup -g "${ANAXEXP_GROUP_ID}" -S anaxexp; \
-	adduser -u "${ANAXEXP_USER_ID}" -D -S -s /bin/bash -G anaxexp anaxexp; \
-	adduser anaxexp www-data; \
-	sed -i '/^anaxexp/s/!/*/' /etc/shadow; \
+	    addgroup -g "${ANAXEXP_GROUP_ID}" -S anaxexp; \
+	    adduser -u "${ANAXEXP_USER_ID}" -D -S -s /bin/bash -G anaxexp anaxexp; \
+	    adduser anaxexp www-data; \
+	    sed -i '/^anaxexp/s/!/*/' /etc/shadow; \
     \
     apk add --update --no-cache -t .php-rundeps \
         "c-client=${C_CLIENT_VER}" \
@@ -253,7 +254,7 @@ RUN set -xe; \
     \
     # Uploadprogress
     mkdir -p /usr/src/php/ext/uploadprogress; \
-    up_url="https://github.com/wodby/pecl-php-uploadprogress/archive/latest.tar.gz"; \
+    up_url="https://github.com/anaxexp/pecl-php-uploadprogress/archive/latest.tar.gz"; \
     wget -qO- "${up_url}" | tar xz --strip-components=1 -C /usr/src/php/ext/uploadprogress; \
     docker-php-ext-install uploadprogress; \
     \
@@ -282,6 +283,7 @@ RUN set -xe; \
     \
     # Make sure bash uses the same settings as ash.
     cp /home/anaxexp/.shrc /home/anaxexp/.bashrc; \
+    cp /home/anaxexp/.shrc /home/anaxexp/.bash_profile; \
     \
     # Configure sudoers
     { \
@@ -295,7 +297,7 @@ RUN set -xe; \
             echo -n '/usr/local/bin/files_chown, ' ; \
             echo -n '/usr/local/bin/files_sync, ' ; \
             echo -n '/usr/local/bin/gen_ssh_keys, ' ; \
-            echo -n '/usr/local/bin/init_volumes, ' ; \
+            echo -n '/usr/local/bin/init_container, ' ; \
             echo -n '/usr/local/bin/migrate, ' ; \
             echo -n '/usr/local/sbin/php-fpm, ' ; \
             echo -n '/usr/sbin/sshd, ' ; \
@@ -332,6 +334,7 @@ RUN set -xe; \
     \
     # Crontab
     rm /etc/crontabs/root; \
+    # deprecated: remove in favor of bind mounts.
     touch /etc/crontabs/www-data; \
     chown root:www-data /etc/crontabs/www-data; \
     chmod 660 /etc/crontabs/www-data; \

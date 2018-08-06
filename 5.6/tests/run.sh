@@ -47,7 +47,7 @@ docker_exec php tests.sh
 # SSH
 echo -n "Testing ssh... "
 docker_exec php touch /home/anaxexp/.ssh/known_hosts
-docker_exec php ssh anaxexp@sshd cat /home/anaxexp/.ssh/authorized_keys | grep -q admin@anaxexp.io
+docker_exec php ssh anaxexp@sshd cat /home/anaxexp/.ssh/authorized_keys | grep -q admin@example.com
 echo "OK"
 
 # Git actions
