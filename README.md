@@ -288,6 +288,7 @@ Change `ANAXEXP_USER_ID` and `ANAXEXP_GROUP_ID` mainly for local dev version of 
 [mongodb]: http://pecl.php.net/package/mongodb
 [newrelic]: http://download.newrelic.com/php_agent/release
 [OAuth]: http://pecl.php.net/package/oauth
+[rdkafka]: https://pecl.php.net/package/rdkafka
 [redis]: http://pecl.php.net/package/redis
 [uploadprogress]: https://pecl.php.net/package/uploadprogress
 [uploadprogress]: https://pecl.php.net/package/uploadprogress
@@ -351,6 +352,7 @@ Change `ANAXEXP_USER_ID` and `ANAXEXP_GROUP_ID` mainly for local dev version of 
 | pgsql            |          |          |          |          |
 | Phar             |          |          |          |          |
 | posix            |          |          |          |          |
+| [rdkafka]        | 3.0.5    | 3.0.5    | 3.0.5    | 3.0.5    |
 | readline         |          |          |          |          |
 | [redis]          | 3.1.6    | 3.1.6    | 3.1.6    | 3.1.6    |
 | Reflection       |          |          |          |          |
