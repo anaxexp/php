@@ -5,8 +5,8 @@ FROM anaxexp/base-php:${FROM_TAG}
 ARG PHP_DEV
 ARG PHP_DEBUG
 
-ARG ANAXEXP_USER_ID=1000
-ARG ANAXEXP_GROUP_ID=1000
+ARG anaxexp_USER_ID=1000
+ARG anaxexp_GROUP_ID=1000
 
 ENV PHP_DEV="${PHP_DEV}" \
     PHP_DEBUG="${PHP_DEBUG}" \
@@ -71,15 +71,15 @@ ENV PATH="${PATH}:/home/anaxexp/.composer/vendor/bin:${APP_ROOT}/vendor/bin" \
 RUN set -xe; \
     \
     # Delete existing user/group if uid/gid occupied.
-    existing_group=$(getent group "${ANAXEXP_GROUP_ID}" | cut -d: -f1); \
+    existing_group=$(getent group "${anaxexp_GROUP_ID}" | cut -d: -f1); \
     if [[ -n "${existing_group}" ]]; then delgroup "${existing_group}"; fi; \
-    existing_user=$(getent passwd "${ANAXEXP_USER_ID}" | cut -d: -f1); \
+    existing_user=$(getent passwd "${anaxexp_USER_ID}" | cut -d: -f1); \
     if [[ -n "${existing_user}" ]]; then deluser "${existing_user}"; fi; \
     \
-	    addgroup -g "${ANAXEXP_GROUP_ID}" -S anaxexp; \
-	    adduser -u "${ANAXEXP_USER_ID}" -D -S -s /bin/bash -G anaxexp anaxexp; \
-	    adduser anaxexp www-data; \
-	    sed -i '/^anaxexp/s/!/*/' /etc/shadow; \
+	addgroup -g "${anaxexp_GROUP_ID}" -S anaxexp; \
+	adduser -u "${anaxexp_USER_ID}" -D -S -s /bin/bash -G anaxexp anaxexp; \
+	adduser anaxexp www-data; \
+	sed -i '/^anaxexp/s/!/*/' /etc/shadow; \
     \
     apk add --update --no-cache -t .php-rundeps \
         "c-client=${C_CLIENT_VER}" \
@@ -135,8 +135,8 @@ RUN set -xe; \
         libmemcached-dev \
         libmcrypt-dev \
         libpng-dev \
-        libtool \
         librdkafka-dev \
+        libtool \
         libxslt-dev \
         openldap-dev \
         pcre-dev \
@@ -282,7 +282,7 @@ RUN set -xe; \
     mv /tmp/walter_linux_amd64/walter /usr/local/bin; \
     \
     { \
-        echo 'export PS1="\u@${ANAXEXP_APP_NAME:-php}.${ANAXEXP_ENVIRONMENT_NAME:-container}:\w $ "'; \
+        echo 'export PS1="\u@${anaxexp_APP_NAME:-php}.${anaxexp_ENVIRONMENT_NAME:-container}:\w $ "'; \
         # Make sure PATH is the same for ssh sessions.
         echo "export PATH=${PATH}"; \
     } | tee /home/anaxexp/.shrc; \
